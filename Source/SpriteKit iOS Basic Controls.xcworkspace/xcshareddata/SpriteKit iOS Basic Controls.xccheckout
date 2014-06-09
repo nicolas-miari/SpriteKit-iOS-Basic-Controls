@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>81568566-994C-4AE1-A871-8CD0B33D9B04</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SpriteKit iOS Basic Controls</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>982668CB-4614-43E1-8DA8-AAA16AEF2112</key>
+		<string>https://github.com/nicolas-miari/SpriteKit-iOS-Basic-Controls.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Source/SpriteKit iOS Basic Controls.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>982668CB-4614-43E1-8DA8-AAA16AEF2112</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/nicolas-miari/SpriteKit-iOS-Basic-Controls.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>982668CB-4614-43E1-8DA8-AAA16AEF2112</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>982668CB-4614-43E1-8DA8-AAA16AEF2112</string>
+			<key>IDESourceControlWCCName</key>
+			<string>76 - SpriteKit iOS Basic Controls</string>
+		</dict>
+	</array>
+</dict>
+</plist>
