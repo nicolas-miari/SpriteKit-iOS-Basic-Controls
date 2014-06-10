@@ -31,8 +31,6 @@
 
 @implementation Button
 {
-    //SKLabelNode*    _label;
-    
     SKSpriteNode*   _icon;
 
     CGFloat         _frameMargin;

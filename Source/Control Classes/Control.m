@@ -31,10 +31,10 @@
 
 #define ControlDefaultFontName              @"Helvetica"
 
-#define ControlDefaultNormalColor           [SKColor greenColor]
+#define ControlDefaultNormalColor           [SKColor grayColor]
 #define ControlDefaultHighlightedColor      [SKColor blueColor]
 #define ControlDefaultSelectedColor         [SKColor redColor]
-#define ControlDefaultDisabledColor         [SKColor grayColor]
+#define ControlDefaultDisabledColor         [SKColor lightGrayColor]
 
 #define ControlDefaultNormalFontColor       [SKColor blackColor]
 #define ControlDefaultHighlightedFontColor  [SKColor whiteColor]
@@ -182,7 +182,7 @@ static NSString* globalTouchUpInsideSoundName = nil;
         [_normalLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeCenter];
         [_normalLabel setVerticalAlignmentMode:SKLabelVerticalAlignmentModeCenter];
         [_normalLabel setFontSize:ControlDefaultNormalFontSize];
-        [_normalLabel setFontColor:ControlDefaultSelectedColor];
+        [_normalLabel setFontColor:ControlDefaultNormalFontColor];
         [self addChild:_normalLabel];
         
         _highlightedLabel = [[SKLabelNode alloc] initWithFontNamed:ControlDefaultFontName];
