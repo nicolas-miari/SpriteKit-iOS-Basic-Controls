@@ -41,10 +41,10 @@
 
 // .............................................................................
 
-- (id) initWithNormalColor:(UIColor*) normalColor
-          highlightedColor:(UIColor*) highlightedColor
-           normalTextColor:(UIColor*) normalTextColor
-      highlightedTextColor:(UIColor*) highlightedTextColor
+- (id) initWithNormalColor:(SKColor*) normalColor
+          highlightedColor:(SKColor*) highlightedColor
+           normalTextColor:(SKColor*) normalTextColor
+      highlightedTextColor:(SKColor*) highlightedTextColor
                       size:(CGSize)size
 {
     if ((self = [super initWithSize:size])) {
@@ -62,16 +62,16 @@
 
 // .............................................................................
 
-- (id) initWithNormalColor:(UIColor*) normalColor
-          highlightedColor:(UIColor*) highlightedColor
+- (id) initWithNormalColor:(SKColor*) normalColor
+          highlightedColor:(SKColor*) highlightedColor
                       size:(CGSize)size
 {
     // Default to white text in both states
     
     return [self initWithNormalColor:normalColor
                     highlightedColor:highlightedColor
-                     normalTextColor:[UIColor whiteColor]
-                highlightedTextColor:[UIColor whiteColor]
+                     normalTextColor:[SKColor whiteColor]
+                highlightedTextColor:[SKColor whiteColor]
                                 size:size];
 }
 

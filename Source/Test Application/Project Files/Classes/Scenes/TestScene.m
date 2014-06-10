@@ -48,7 +48,7 @@
         self.backgroundColor = [SKColor whiteColor];
         
         [self setAnchorPoint:CGPointMake(0.5f, 0.5f)];
-        [self setBackgroundColor:[UIColor whiteColor]];
+        [self setBackgroundColor:[SKColor whiteColor]];
         
         
         Button* testButton = [[Button alloc] initWithSize:CGSizeMake(200.0f, 70.0f)];
