@@ -135,11 +135,20 @@ typedef NS_ENUM(NSInteger, ControlState)
 - (instancetype) initWithSize:(CGSize) size;
 
 
+#if TARGET_OS_IPHONE
 /**
  */
 - (void) addTarget:(id) target
             action:(SEL) action
   forControlEvents:(UIControlEvents) events;
+
+#else
+/**
+ */
+- (void) addTarget:(id) target
+            action:(SEL) action;
+
+#endif
 
 
 /**

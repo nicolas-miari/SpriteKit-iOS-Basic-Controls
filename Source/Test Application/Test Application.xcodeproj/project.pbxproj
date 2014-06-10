@@ -99,10 +99,10 @@
 		1FBBAD311946B26A00686257 /* Control Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1FBBAD321946B26A00686257 /* Button.h */,
-				1FBBAD331946B26A00686257 /* Button.m */,
 				1FBBAD341946B26A00686257 /* Control.h */,
 				1FBBAD351946B26A00686257 /* Control.m */,
+				1FBBAD321946B26A00686257 /* Button.h */,
+				1FBBAD331946B26A00686257 /* Button.m */,
 				1FBBAD361946B26A00686257 /* Switch.h */,
 				1FBBAD371946B26A00686257 /* Switch.m */,
 			);
