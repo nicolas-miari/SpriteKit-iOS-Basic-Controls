@@ -82,7 +82,7 @@
 
 - (void) controlAction:(id) sender
 {
-    
+    NSLog(@"Button Action!");
 }
 
 @end
