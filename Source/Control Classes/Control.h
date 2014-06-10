@@ -105,19 +105,19 @@ typedef NS_ENUM(NSInteger, ControlState)
 @property (nonatomic, readwrite, copy) NSString* disabledLabelText;
 
 ///
-@property (nonatomic, readwrite, strong) UIColor* fontColor;
+@property (nonatomic, readwrite, strong) SKColor* fontColor;
 
 ///
-@property (nonatomic, readwrite, strong) UIColor* normalFontColor;
+@property (nonatomic, readwrite, strong) SKColor* normalFontColor;
 
 ///
-@property (nonatomic, readwrite, strong) UIColor* highlightedFontColor;
+@property (nonatomic, readwrite, strong) SKColor* highlightedFontColor;
 
 ///
-@property (nonatomic, readwrite, strong) UIColor* selectedFontColor;
+@property (nonatomic, readwrite, strong) SKColor* selectedFontColor;
 
 ///
-@property (nonatomic, readwrite, strong) UIColor* disabledFontColor;
+@property (nonatomic, readwrite, strong) SKColor* disabledFontColor;
 
 ///
 @property (nonatomic, readwrite, getter = isEnabled    ) BOOL enabled;
@@ -135,11 +135,20 @@ typedef NS_ENUM(NSInteger, ControlState)
 - (instancetype) initWithSize:(CGSize) size;
 
 
+#if TARGET_OS_IPHONE
 /**
  */
 - (void) addTarget:(id) target
             action:(SEL) action
   forControlEvents:(UIControlEvents) events;
+
+#else
+/**
+ */
+- (void) addTarget:(id) target
+            action:(SEL) action;
+
+#endif
 
 
 /**

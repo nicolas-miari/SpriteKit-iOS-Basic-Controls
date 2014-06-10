@@ -58,8 +58,12 @@ static NSString* globalTouchUpInsideSoundName = nil;
 @interface TargetActionInfo : NSObject
 
 @property (nonatomic, readonly) id              target;
+
 @property (nonatomic, readonly) SEL             action;
+
+#if TARGET_OS_IPHONE
 @property (nonatomic, readonly) UIControlEvents events;
+#endif
 
 @end
 
@@ -70,33 +74,52 @@ static NSString* globalTouchUpInsideSoundName = nil;
 {
     id __weak       _target;
     SEL             _action;
+    
+#if TARGET_OS_IPHONE
     UIControlEvents _events;
+#endif
 }
 
 @synthesize target = _target;
 @synthesize action = _action;
+#if TARGET_OS_IPHONE
 @synthesize events = _events;
-
+#endif
 
 // .............................................................................
+
+- (instancetype) initWithTarget:(id) target
+                         action:(SEL) action
+{
+    if ((self = [super init])) {
+        
+        _target = target;
+        _action = action;
+    }
+    
+    return self;
+}
+
+// .............................................................................
+
+#if TARGET_OS_IPHONE
 
 - (instancetype) initWithTarget:(id) target
                          action:(SEL) action
                   controlEvents:(UIControlEvents) events
 
 {
-    if ((self = [super init])) {
+    if ((self = [self initWithTarget:target action:action])) {
         
-        _target = target;
-        _action = action;
         _events = events;
     }
     
     return self;
 }
 
-@end
+#endif
 
+@end
 
 // .............................................................................
 
@@ -118,8 +141,9 @@ static NSString* globalTouchUpInsideSoundName = nil;
     SKColor*        _highlightedColor;
     SKColor*        _selectedColor;
     
-    
+#if TARGET_OS_IPHONE
     UITouch*        _touch;
+#endif
     CGPoint         _touchLocationLast;
     BOOL            _moved;
     
@@ -336,14 +360,16 @@ static NSString* globalTouchUpInsideSoundName = nil;
 
 // .............................................................................
 
+#if TARGET_OS_IPHONE
+
 - (void) addTarget:(id) target
             action:(SEL) action
   forControlEvents:(UIControlEvents) events
 {
-    for (TargetActionInfo* pair in _targetActions) {
-        if ([pair target] == target) {
-            if ([pair action] == action) {
-                if ([pair events] == events) {
+    for (TargetActionInfo* info in _targetActions) {
+        if ([info target] == target) {
+            if ([info action] == action) {
+                if ([info events] == events) {
                     return;
                 }
             }
@@ -351,26 +377,47 @@ static NSString* globalTouchUpInsideSoundName = nil;
     }
     
     
-    TargetActionInfo* pair = [[TargetActionInfo alloc] initWithTarget:target
+    TargetActionInfo* info = [[TargetActionInfo alloc] initWithTarget:target
                                                                 action:action
                                                          controlEvents:events];
-    [_targetActions addObject:pair];
+    [_targetActions addObject:info];
 }
+
+#else
+
+- (void) addTarget:(id) target
+            action:(SEL) action
+{
+    for (TargetActionInfo* info in _targetActions) {
+        if ([info target] == target) {
+            if ([info action] == action) {
+                return;
+            }
+        }
+    }
+    
+    
+    TargetActionInfo* info = [[TargetActionInfo alloc] initWithTarget:target
+                                                               action:action];
+    [_targetActions addObject:info];
+}
+
+#endif
 
 // .............................................................................
 
 - (void) removeTarget:(id) target
 {
-    NSMutableArray* pairsToRemove = [NSMutableArray new];
+    NSMutableArray* infosToRemove = [NSMutableArray new];
     
-    for (TargetActionInfo* pair in _targetActions) {
+    for (TargetActionInfo* info in _targetActions) {
         
-        if ([pair target] == target) {
-            [pairsToRemove addObject:pair];
+        if ([info target] == target) {
+            [infosToRemove addObject:info];
         }
     }
     
-    [_targetActions removeObjectsInArray:pairsToRemove];
+    [_targetActions removeObjectsInArray:infosToRemove];
 }
 
 // .............................................................................
@@ -434,6 +481,20 @@ static NSString* globalTouchUpInsideSoundName = nil;
 
 // .............................................................................
 
+- (void) callMethodForTargetAction:(TargetActionInfo*) info
+{
+    id  target = [info target];
+    SEL action = [info action];
+    
+    IMP imp = [target methodForSelector:action];
+    
+    void (*func)(id, SEL, id) = (void*) imp;
+    
+    func(target, action, self);
+}
+
+// .............................................................................
+
 #pragma mark - Control Events 
 
 // (in typical chronological order of occurrence)
@@ -441,21 +502,17 @@ static NSString* globalTouchUpInsideSoundName = nil;
 
 - (void) touchDown
 {
-    for (TargetActionInfo* pair in _targetActions) {
+    for (TargetActionInfo* info in _targetActions) {
         
-        if ([pair events] & UIControlEventTouchDown) {
+#if TARGET_OS_IPHONE
+        
+        if ([info events] & UIControlEventTouchDown) {
             
-            id  target = [pair target];
-            SEL action = [pair action];
-            
-            IMP imp = [target methodForSelector:action];
-            
-            void (*func)(id, SEL, id) = (void*) imp;
-            
-            func(target, action, self);
+            [self callMethodForTargetAction:info];
         }
+#endif
+        
     }
-    
     
     [self setHighlighted:YES];
 }
@@ -473,12 +530,14 @@ static NSString* globalTouchUpInsideSoundName = nil;
 {
     [self setHighlighted:NO];
     
-    for (TargetActionInfo* pair in _targetActions) {
-        
-        if ([pair events] & UIControlEventTouchDragExit) {
+#if TARGET_OS_IPHONE
+    
+    for (TargetActionInfo* info in _targetActions) {
+    
+        if ([info events] & UIControlEventTouchDragExit) {
             
-            id  target = [pair target];
-            SEL action = [pair action];
+            id  target = [info target];
+            SEL action = [info action];
             
             IMP imp = [target methodForSelector:action];
             
@@ -487,74 +546,66 @@ static NSString* globalTouchUpInsideSoundName = nil;
             func(target, action, self);
         }
     }
+    
+#endif
+    
 }
 
 // .............................................................................
 
 - (void) dragOutside
 {
-    ////DLog(@"DRAG OUTSIDE");
     
-    for (TargetActionInfo* pair in _targetActions) {
+#if TARGET_OS_IPHONE
+
+    for (TargetActionInfo* info in _targetActions) {
         
-        if ([pair events] & UIControlEventTouchDragOutside) {
+        if ([info events] & UIControlEventTouchDragOutside) {
             
-            id  target = [pair target];
-            SEL action = [pair action];
-            
-            IMP imp = [target methodForSelector:action];
-            
-            void (*func)(id, SEL, id) = (void*) imp;
-            
-            func(target, action, self);
+            [self callMethodForTargetAction:info];
         }
     }
+    
+#endif
+    
 }
 
 // .............................................................................
 
 - (void) dragEnter
 {
-    ////DLog(@"DRAG ENTER");
-    
     [self setHighlighted:YES];
     
-    for (TargetActionInfo* pair in _targetActions) {
-        
-        if ([pair events] & UIControlEventTouchDragEnter) {
+#if TARGET_OS_IPHONE
+    
+    for (TargetActionInfo* info in _targetActions) {
+    
+        if ([info events] & UIControlEventTouchDragEnter) {
             
-            id  target = [pair target];
-            SEL action = [pair action];
-            
-            IMP imp = [target methodForSelector:action];
-            
-            void (*func)(id, SEL, id) = (void*) imp;
-            
-            func(target, action, self);
+            [self callMethodForTargetAction:info];
         }
     }
+    
+#endif
+    
 }
 
 // .............................................................................
 
 - (void) dragInside
 {
-    ////DLog(@"DRAG INSIDE");
+#if TARGET_OS_IPHONE
     
-    for (TargetActionInfo* pair in _targetActions) {
+    for (TargetActionInfo* info in _targetActions) {
         
-        if ([pair events] & UIControlEventTouchDragInside) {
+        if ([info events] & UIControlEventTouchDragInside) {
             
-            id  target = [pair target];
-            SEL action = [pair action];
-            
-            IMP imp = [target methodForSelector:action];
-            
-            void (*func)(id, SEL, id) = (void*) imp;
-            
-            func(target, action, self);
+            [self callMethodForTargetAction:info];
         }
     }
+    
+#endif
+    
 }
 
 // .............................................................................
@@ -563,30 +614,20 @@ static NSString* globalTouchUpInsideSoundName = nil;
 {
     [self setHighlighted:NO];
     
-    if (_touchUpInsideSoundName) {
-        
-        [self runAction:[SKAction playSoundFileNamed:_touchUpInsideSoundName
-                                   waitForCompletion:NO]];
-    }
-    else if (globalTouchUpInsideSoundName) {
-        
-        [self runAction:[SKAction playSoundFileNamed:globalTouchUpInsideSoundName
-                                   waitForCompletion:NO]];
-    }
+#if TARGET_OS_IPHONE
     
-    for (TargetActionInfo* pair in _targetActions) {
+    for (TargetActionInfo* info in _targetActions) {
         
-        if ([pair events] & UIControlEventTouchUpInside) {
+        if ([info events] & UIControlEventTouchUpInside) {
             
-            id  target = [pair target];
-            SEL action = [pair action];
-            
-            IMP imp = [target methodForSelector:action];
-            
-            void (*func)(id, SEL, id) = (void*) imp;
-            
-            func(target, action, self);
+            [self callMethodForTargetAction:info];
         }
+#else
+        
+        [self callMethodForTargetAction:info];
+        
+#endif
+        
     }
 }
 
@@ -594,23 +635,25 @@ static NSString* globalTouchUpInsideSoundName = nil;
 
 - (void) touchUpOutside
 {
-    for (TargetActionInfo* pair in _targetActions) {
+    
+#if TARGET_OS_IPHONE
+    
+    for (TargetActionInfo* info in _targetActions) {
         
-        if ([pair events] & UIControlEventTouchUpOutside) {
+
+        if ([info events] & UIControlEventTouchUpOutside) {
             
-            id  target = [pair target];
-            SEL action = [pair action];
-            
-            IMP imp = [target methodForSelector:action];
-            
-            void (*func)(id, SEL, id) = (void*) imp;
-            
-            func(target, action, self);
+            [self callMethodForTargetAction:info];
         }
     }
+    
+#endif
+    
 }
 
 // .............................................................................
+
+#if TARGET_OS_IPHONE
 
 #pragma mark - UIResponder methods
 
@@ -707,6 +750,73 @@ static NSString* globalTouchUpInsideSoundName = nil;
 {
     [self touchesEnded:touches withEvent:event];
 }
+
+#else 
+
+- (void) mouseDown:(NSEvent*) theEvent
+{
+    _touchLocationLast = [theEvent locationInNode:self];
+    
+    [self touchDown];
+}
+
+// .............................................................................
+
+- (void) mouseUp:(NSEvent*) theEvent
+{
+    _touchLocationLast = CGPointMake(INFINITY, INFINITY);
+    
+    [self touchUpInside];
+}
+
+// .............................................................................
+
+- (void) mouseEntered:(NSEvent *)theEvent
+{
+    [self dragEnter];
+}
+
+// .............................................................................
+
+- (void) mouseDragged:(NSEvent*) theEvent
+{
+    if ([self containsPoint:_touchLocationLast]) {
+        // Inside
+        
+        _touchLocationLast = [theEvent locationInNode:self];
+        
+        if ([self containsPoint:_touchLocationLast] == NO) {
+            // Exited
+            
+            [self dragExit];
+        }
+
+    }
+    else{
+        // Outside
+        
+        _touchLocationLast = [theEvent locationInNode:self];
+        
+        if ([self containsPoint:_touchLocationLast] == YES) {
+            // Entered
+            
+            [self dragEnter];
+        }
+    }
+    
+    [self drag];
+}
+
+// .............................................................................
+
+- (void) mouseExited:(NSEvent *)theEvent
+{
+    [self dragExit];
+}
+
+// .............................................................................
+
+#endif
 
 // .............................................................................
 

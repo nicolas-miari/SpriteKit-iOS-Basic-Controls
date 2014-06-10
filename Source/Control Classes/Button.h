@@ -39,15 +39,15 @@
 
 
 /// Colored quad + label text
-- (id) initWithNormalColor:(UIColor*) normalColor
-          highlightedColor:(UIColor*) highlightedColor
+- (id) initWithNormalColor:(SKColor*) normalColor
+          highlightedColor:(SKColor*) highlightedColor
                       size:(CGSize)size;
 
 ///
-- (id) initWithNormalColor:(UIColor*) normalColor
-          highlightedColor:(UIColor*) highlightedColor
-           normalTextColor:(UIColor*) normalTextColor
-      highlightedTextColor:(UIColor*) highlightedTextColor
+- (id) initWithNormalColor:(SKColor*) normalColor
+          highlightedColor:(SKColor*) highlightedColor
+           normalTextColor:(SKColor*) normalTextColor
+      highlightedTextColor:(SKColor*) highlightedTextColor
                       size:(CGSize)size;
 
 
