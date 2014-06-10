@@ -1,5 +1,5 @@
 /*
-    ViewController.h
+    Button.h
     SpriteKit iOS Basic Controls
 
     Created by Nicolas Miari on 6/9/14.
@@ -24,8 +24,33 @@
     THE SOFTWARE.
  */
 
-@import UIKit;
+#import "Control.h"
 
-@interface ViewController : UIViewController
+
+// .............................................................................
+
+@interface Button : Control
+
+///
+@property (nonatomic, readwrite) CGSize         hitSize;
+
+/// Centered, child sprite that highlights with the same colors as the label text
+@property (nonatomic, readwrite) SKSpriteNode*  icon;
+
+
+/// Colored quad + label text
+- (id) initWithNormalColor:(UIColor*) normalColor
+          highlightedColor:(UIColor*) highlightedColor
+                      size:(CGSize)size;
+
+///
+- (id) initWithNormalColor:(UIColor*) normalColor
+          highlightedColor:(UIColor*) highlightedColor
+           normalTextColor:(UIColor*) normalTextColor
+      highlightedTextColor:(UIColor*) highlightedTextColor
+                      size:(CGSize)size;
+
 
 @end
+
+// .............................................................................

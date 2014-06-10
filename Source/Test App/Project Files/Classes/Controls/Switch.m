@@ -1,5 +1,5 @@
 /*
-    TestScene.m
+    Switch.m
     SpriteKit iOS Basic Controls
 
     Created by Nicolas Miari on 6/9/14.
@@ -24,67 +24,40 @@
     THE SOFTWARE.
  */
 
-#import "TestScene.h"
-
-#import "Button.h"
 #import "Switch.h"
 
 
 // .............................................................................
 
-@implementation TestScene
+@implementation Switch
 {
-    
-}
-
-
-// .............................................................................
-
--(id) initWithSize:(CGSize) size
-{
-    if (self = [super initWithSize:size]) {
-        /* Setup your scene here */
-        
-        self.backgroundColor = [SKColor whiteColor];
-        
-        [self setAnchorPoint:CGPointMake(0.5f, 0.5f)];
-        [self setBackgroundColor:[UIColor whiteColor]];
-        
-        
-        Button* testButton = [[Button alloc] initWithSize:CGSizeMake(200.0f, 70.0f)];
-        
-        [testButton setLabelText:@"Button"];
-        
-        [testButton setPosition:CGPointMake(0.0f, +100.0f)];
-        
-        [self addChild:testButton];
-        
-        
-        [testButton addTarget:self
-                       action:@selector(controlAction:)
-             forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        Switch* testSwitch = [[Switch alloc] initWithSize:CGSizeMake(200.0f, 70.0f)];
-        
-        [testSwitch setNormalLabelText:@"Switch (OFF)"];
-        [testSwitch setSelectedLabelText:@"Switch (ON)"];
-        
-        [testSwitch setPosition:CGPointMake(0.0f, -100.0f)];
-        
-        [self addChild:testSwitch];
-    }
-    
-    return self;
+    /* Parent class's state variable gets overwritten during highlighting, so we
+      need an extra bool to keep track of switch toggle.
+     */
+    BOOL     _toggle;
 }
 
 // .............................................................................
 
-- (void) controlAction:(id) sender
+- (void) touchUpInside
 {
+    [super touchUpInside];
     
+    
+    // Toggle Switch's selection state:
+    _toggle = !_toggle;
+
+    
+    // Display it using Control's "selected" state:
+    [self setSelected:_toggle];
+    
+    
+    // Value changed, notify the Control's delegate:
+    [[self delegate] performSelector:@selector(controlValueChanged:)
+                          withObject:self];
 }
+
+// .............................................................................
+
 
 @end
-
-// .............................................................................

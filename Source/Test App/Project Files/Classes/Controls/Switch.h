@@ -1,5 +1,5 @@
 /*
-    ViewController.h
+    Switch.h
     SpriteKit iOS Basic Controls
 
     Created by Nicolas Miari on 6/9/14.
@@ -24,8 +24,17 @@
     THE SOFTWARE.
  */
 
-@import UIKit;
+#import "Control.h"
 
-@interface ViewController : UIViewController
+
+// .............................................................................
+/* A switch is a control that toggles the selected and normal states  each time 
+   it receives a touch up inside event.
+ */
+@interface Switch : Control
+
+
 
 @end
+
+// .............................................................................

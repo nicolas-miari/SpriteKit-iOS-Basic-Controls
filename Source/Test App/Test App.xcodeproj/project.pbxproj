@@ -10,6 +10,9 @@
 		1FBB03A91945BD06003A5B89 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBB03A21945BD06003A5B89 /* AppDelegate.m */; };
 		1FBB03AA1945BD06003A5B89 /* TestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBB03A51945BD06003A5B89 /* TestScene.m */; };
 		1FBB03AB1945BD06003A5B89 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBB03A81945BD06003A5B89 /* ViewController.m */; };
+		1FBF422A1946A2570059AAE2 /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF42251946A2570059AAE2 /* Button.m */; };
+		1FBF422B1946A2570059AAE2 /* Control.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF42271946A2570059AAE2 /* Control.m */; };
+		1FBF422C1946A2570059AAE2 /* Switch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF42291946A2570059AAE2 /* Switch.m */; };
 		1FCB16811945B6C000FA84F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCB16801945B6C000FA84F2 /* Foundation.framework */; };
 		1FCB16831945B6C000FA84F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCB16821945B6C000FA84F2 /* CoreGraphics.framework */; };
 		1FCB16851945B6C000FA84F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FCB16841945B6C000FA84F2 /* UIKit.framework */; };
@@ -29,6 +32,12 @@
 		1FBB03A51945BD06003A5B89 /* TestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestScene.m; sourceTree = "<group>"; };
 		1FBB03A71945BD06003A5B89 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		1FBB03A81945BD06003A5B89 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1FBF42241946A2570059AAE2 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		1FBF42251946A2570059AAE2 /* Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Button.m; sourceTree = "<group>"; };
+		1FBF42261946A2570059AAE2 /* Control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Control.h; sourceTree = "<group>"; };
+		1FBF42271946A2570059AAE2 /* Control.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Control.m; sourceTree = "<group>"; };
+		1FBF42281946A2570059AAE2 /* Switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Switch.h; sourceTree = "<group>"; };
+		1FBF42291946A2570059AAE2 /* Switch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Switch.m; sourceTree = "<group>"; };
 		1FCB167D1945B6C000FA84F2 /* Test App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCB16801945B6C000FA84F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FCB16821945B6C000FA84F2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -63,6 +72,12 @@
 		1FBB039E1945BD06003A5B89 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				1FBF42261946A2570059AAE2 /* Control.h */,
+				1FBF42271946A2570059AAE2 /* Control.m */,
+				1FBF42241946A2570059AAE2 /* Button.h */,
+				1FBF42251946A2570059AAE2 /* Button.m */,
+				1FBF42281946A2570059AAE2 /* Switch.h */,
+				1FBF42291946A2570059AAE2 /* Switch.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -245,8 +260,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FBF422C1946A2570059AAE2 /* Switch.m in Sources */,
 				1FBB03A91945BD06003A5B89 /* AppDelegate.m in Sources */,
+				1FBF422B1946A2570059AAE2 /* Control.m in Sources */,
 				1FCB16DD1945B80100FA84F2 /* main.m in Sources */,
+				1FBF422A1946A2570059AAE2 /* Button.m in Sources */,
 				1FBB03AB1945BD06003A5B89 /* ViewController.m in Sources */,
 				1FBB03AA1945BD06003A5B89 /* TestScene.m in Sources */,
 			);
